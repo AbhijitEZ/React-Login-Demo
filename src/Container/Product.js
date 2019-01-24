@@ -40,6 +40,7 @@ componentDidUpdate(prevProps){
               <Breadcrumb.Divider />
               <Breadcrumb.Section active>Product</Breadcrumb.Section>
             </Breadcrumb>
+            <Link to = '/'><Button color = 'red' floated = 'right' >LogOut</Button></Link>
         </Segment>
   
      {!this.state.loading?( 

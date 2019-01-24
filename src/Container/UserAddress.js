@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Breadcrumb,  Segment, Card,  Grid,  Header,  Container } from 'semantic-ui-react';
+import {Breadcrumb,  Segment, Card,  Grid,  Header,  Container,Button } from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as actionCreators from '../store/actions';
@@ -38,14 +38,15 @@ class UserAddress extends Component {
 
     return (
       <Container>
-              <Segment>
-                  
-                  <Breadcrumb size = 'big'>
-                  <Link to = '/product/productListings'><Breadcrumb.Section >ProductListing</Breadcrumb.Section></Link>
-                  <Breadcrumb.Divider />
-                  <Breadcrumb.Section active>User-Address</Breadcrumb.Section>
-                </Breadcrumb>
-                </Segment>
+        <Segment>
+            
+            <Breadcrumb size = 'big'>
+            <Link to = '/product/productListings'><Breadcrumb.Section >ProductListing</Breadcrumb.Section></Link>
+            <Breadcrumb.Divider />
+            <Breadcrumb.Section active>User-Address</Breadcrumb.Section>
+          </Breadcrumb>
+          <Link to = '/'><Button color = 'red' floated = 'right' >LogOut</Button></Link>
+          </Segment>
         <Grid columns={2}>
         <Grid.Row>
         <Grid.Column>

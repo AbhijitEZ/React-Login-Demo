@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Breadcrumb,  Segment, Card, Image, Grid,  Header } from 'semantic-ui-react';
+import {Breadcrumb,  Segment, Card, Image, Grid,  Header, Button } from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as actionCreators from '../store/actions';
@@ -39,6 +39,7 @@ componentDidUpdate(prevProps){
           <Breadcrumb.Divider />
           <Breadcrumb.Section active>USER</Breadcrumb.Section>
         </Breadcrumb>
+        <Link to = '/'><Button color = 'red' floated = 'right' >LogOut</Button></Link>
     </Segment>
     
        {!this.state.loading?( 

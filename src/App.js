@@ -1,26 +1,30 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-
+import Login from './Container/Login';
+import Product from './Container/Product';
+import ProductListing from './Container/ProductListing';
+import {createBrowserHistory} from 'history';
+import {Router, Route, Switch} from 'react-router-dom';
+import UserProfile from './Container/UserProfile';
+import UserAddress from './Container/UserAddress';
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+     
+     <Router history ={createBrowserHistory()}>
+     
+      <div>
+      <Switch>
+       <Route path = '/' exact component ={Login} />
+       <Route path = '/product/productListings' exact component ={ProductListing} />
+       <Route path = '/product/detail/:id' exact component = {Product} />
+       <Route path = '/user/getUserProfile/:userid' exact component = {UserProfile} />
+       <Route path = '/user/savedAddress' exact component = {UserAddress} />
+       <Route render = {() => (<h2>Wrong Route</h2>)} />
+       </Switch>
+       </div>
+     </Router>
+    
     );
   }
 }

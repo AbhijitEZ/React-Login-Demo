@@ -1,0 +1,6 @@
+export const AUTH = 'AUTH';
+export const  FETCH_PRODUCTS = 'FETCH_PRODUCTS';
+export const  FETCH_PRODUCT_DATA = 'FETCH_PRODUCT_DATA';
+export const  FETCH_USER_DETAIL = 'FETCH_USER_DETAIL';
+export const  FETCH_USER_ADDRESS = 'FETCH_USER_ADDRESS';
+export const  UNAUTH = 'UNAUTH';

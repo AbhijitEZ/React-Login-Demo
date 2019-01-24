@@ -36,7 +36,7 @@ componentDidUpdate(prevProps){
       return (
         <div>
         <Segment>
-        <Header as = 'h2'>Product</Header>
+        <Header as = 'h2' color = 'purple'>Product</Header>
        
         </Segment>
         <Segment>

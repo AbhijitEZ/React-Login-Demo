@@ -6,12 +6,11 @@ import * as actionCreators from '../store/actions';
 class Login extends Component {
   constructor(props){
     super(props);
-    this.state = {email: '',password: '', device_token: '', os_type: '',  auth : null};
+    this.state = {email: '',password: '',  auth : null};
   }
   email = '';
   password = '';
-  device_token = '';
-  os_type = '';
+
 
   handleEmail = (event) => {
     this.email = event.target.value;
@@ -20,22 +19,17 @@ class Login extends Component {
    handlePassword = (event,{name,value}) => {
     this.password = value
   }
-  handleDeviceToken = (event,{name,value}) => {
-    this.device_token = value
-  }
-  handleOsType = (event,{name,value}) => {
-    this.os_type = value
-  }
+
   setValuesToState = (event) => {
-    this.setState({email : this.email, password: this.password, device_token : this.device_token, os_type: this.os_type});
+    this.setState({email : this.email, password: this.password});
   }
   handleSubmit(){
-    let {email, password, device_token, os_type} = this.state;
+    let {email, password} = this.state;
     let data = {
       'email' : email,
       'password' : password,
-      'device_token': device_token,
-      'os_type': os_type
+      'device_token': 'abcdeeeeeffffffgggghhhh',
+      'os_type': 1
     }
     let fetchObj = { 
       method: 'POST', 
@@ -83,14 +77,6 @@ render(){
           <Form.Field>
             <Label  color = 'green'>Password</Label>
             <Input  type = 'password' placeholder='Password' name = 'password' onChange = {this.handlePassword} />
-          </Form.Field>
-          <Form.Field>
-            <Label  color = 'green'>Device_token</Label>
-            <Input  type = 'text' placeholder='devicetoken' name = 'device-token' onChange = {this.handleDeviceToken} />
-          </Form.Field>
-          <Form.Field>
-            <Label  color = 'green'>OS_Type</Label>
-            <Input  type = 'number' placeholder='OS Type' name = 'os-type' onChange = {this.handleOsType} />
           </Form.Field>
          
     

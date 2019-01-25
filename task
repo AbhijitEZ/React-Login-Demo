@@ -1,0 +1,43 @@
+*Add/Update Address*
+
+CALL : `/user/updateAddress`
+METHOD : POST
+
+PARAMS :
+
+```'id'            => 'sometimes|exists:addresses,id',
+'address_type'  => 'required', (1=> shipping address, 2=> billing address)
+'postal_code'   => 'required|regex:/^[A-Z0-9^]+$/',
+'state_id'      => 'required|exists:states,id',
+'city_id'       => 'required|exists:cities,id',
+'name'          => 'required',
+'address'       => 'required',
+'mobile_number' => 'required',
+'is_default'    => 'required' (true/false)```
+
+1) you can add/update saved address from this one call. if you will pass `id` with address, it will assume it as a update call. else it will create a new address.
+2) `state_id` and `city_id` are required from our database records which you will get from common configuration call. if you will pass wrong ids, it will not accept.
+
+*Common Configuration*
+
+CALL : `/common/commonConfiguration`
+METHOD: GET
+
+PARAMS :
+```
+```
+1) this is common call which can be called without authentication or with authentication. you will get all records related to states, cities, attributes and some common settings from this call.
+2) take `state_id` and `city_id` from this configuration as a dropdown.
+
+
+*Favourite/Unfavourite Product*
+
+CALL : `/product/favUnfavProduct`
+METHOD: POST
+
+PARAMS :
+```id:{productId}
+is_fav:false/true```
+
+
+1) this will be called to add/remove product from favourite list. once you will add product in favourite list. you will get `is_fav:true` in any product call. show in listing if product is already added into favourite. if it isn't in favourite list. give it a button to add in a favourite list.

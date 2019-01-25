@@ -1,12 +1,13 @@
 import * as actionTypes from './constant';
 let initalState ={
   auth : null,
+  commonConfig: null,
   productsData: null,
   productDetail: null,
   singleUser: null,
   productImage: null,
   userInfo : null,
-  userAddress : null
+  userAddress : null,
 }
 let reducer = (state = initalState, action) => {
 
@@ -20,6 +21,12 @@ let reducer = (state = initalState, action) => {
     return {
       ...state,
       auth : null
+    }
+    case actionTypes.CONFIG:
+    console.log(action.payload)
+    return {
+      ...state,
+      commonConfig : action.payload
     }
     case actionTypes.FETCH_PRODUCTS:
     return {
@@ -43,6 +50,14 @@ let reducer = (state = initalState, action) => {
     return {
       ...state,
       userAddress : action.payload.data
+    }
+    case actionTypes.ADD_ADDRESS:
+    return {
+      ...state
+    }
+    case actionTypes.FAV_PRODUCT:
+    return {
+      ...state,
     }
 
     default:

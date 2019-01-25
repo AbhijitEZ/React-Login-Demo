@@ -41,6 +41,8 @@ class Login extends Component {
       }
   }
     this.props.dataAuth('http://139.59.87.122/modtod/beta/api/auth/login', fetchObj);
+    this.props.commonConfigData('http://139.59.87.122/modtod/beta/api/common/commonConfiguration');
+    
  
   }
   componentDidUpdate(prevProps){
@@ -51,7 +53,7 @@ class Login extends Component {
           }
           else{
             localStorage.setItem('authen',this.props.authen);
-      
+            // localStorage.setItem('config',this.props.commonConfig);
             this.props.history.push('/product/productListings');
           }
     }
@@ -99,12 +101,14 @@ render(){
 
 let mapStateToProps = (state) => {
   return {
-  authen: state.auth
+  authen: state.auth,
+
   };
 };
 let mapStateToDispatch = (dispatch) => {
   return {
     dataAuth : (url, data) => dispatch(actionCreators.authentication(url, data)),
+    commonConfigData : (url) => dispatch(actionCreators.commonConfigData(url)),
   }
 };
 

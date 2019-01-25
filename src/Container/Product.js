@@ -6,8 +6,9 @@ import * as actionCreators from '../store/actions';
 class Product extends Component{
   constructor(props){
     super(props);
-    this.state = {data: null, images : '',users : null, loading: true}
+    this.state = {data: null, images : '',users : null, loading: true, isFav : null }
   }
+ id = null;
 componentDidMount(){
   let fetchObj = {
     method: 'GET', 
@@ -17,22 +18,54 @@ componentDidMount(){
        'Authorization' : 'Bearer ' + localStorage.getItem('authen')
     }
   }
-
   this.props.productData(`http://139.59.87.122/modtod/beta/api/product/detail/${this.props.match.params.id}`, fetchObj);
-
+  this.id = this.props.match.params.id;
+  
 }
 componentDidUpdate(prevProps){
   if(prevProps.productDetail !== this.props.productDetail ){
+    this.setState({isFav : this.props.productDetail.is_fav})
+
+    console.log(this.props.productDetail.is_fav);
     this.setState({loading: false});
   }
 }
 
+handleFav(){
+  
+  let fetchObj = {
+    method: 'POST', 
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization' : 'Bearer ' + localStorage.getItem('authen')
+    }
+  }
+  this.props.favProduct(`http://139.59.87.122/modtod/beta/api/product/favUnfavProduct?id=${this.id}&is_fav=${true}`,fetchObj);
+
+  
+}
+handleUnfav(){
+
+  let fetchObj = {
+    method: 'POST', 
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization' : 'Bearer ' + localStorage.getItem('authen')
+    }
+  }
+  this.props.favProduct(`http://139.59.87.122/modtod/beta/api/product/favUnfavProduct?id=${this.id}&is_fav=${false}`,fetchObj);
+
+ 
+}
 
 
   render(){
+    
     return(
       <div>
-        
+     
               <Segment>
                   
                 <Breadcrumb size = 'big'>
@@ -78,6 +111,13 @@ componentDidUpdate(prevProps){
      </Card>
      </Link>
      </Grid.Column>
+     <Grid.Column>
+       <Button onClick = {() => this.handleFav()} color = 'green'>Add_FAV</Button>
+       <Button onClick = {() => this.handleUnfav()} color = 'red'>Remove_FAV</Button>
+     </Grid.Column>
+     <Grid.Column>
+       <Header>{`${this.state.isFav ? 'favouirte': 'unfavouirte'}`}</Header> 
+     </Grid.Column>
      </Grid.Row>
       </Grid>
      ):null}
@@ -97,7 +137,8 @@ let mapStateToProps = (state) => {
 
 let mapStateToDispatch = (dispatch) => {
   return {
-    productData : (url, data) => dispatch(actionCreators.productData(url, data))
+    productData : (url, data) => dispatch(actionCreators.productData(url, data)),
+    favProduct : (url, data) => dispatch(actionCreators.favProduct(url, data))
   }
 }
 export default connect(mapStateToProps, mapStateToDispatch)(Product)

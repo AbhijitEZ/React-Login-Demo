@@ -26,7 +26,7 @@ componentDidUpdate(prevProps){
   if(prevProps.productDetail !== this.props.productDetail ){
     this.setState({isFav : this.props.productDetail.is_fav})
 
-    console.log(this.props.productDetail.is_fav);
+
     this.setState({loading: false});
   }
 }

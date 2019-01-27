@@ -59,7 +59,7 @@ export const userDetail = (url, data) => {
       return res.json();
     })
     .then(result => {
-      console.log(result)
+      
       dispatch({type: actionTypes.FETCH_USER_DETAIL, payload : {data : result.data}})
     }).catch(err => 'something is wrong');
   }
@@ -84,7 +84,7 @@ export const favProduct = (url, data) => {
       return res.json();
     })
     .then(result => {
-     console.log(result);
+
      window.location.reload();
       dispatch({type: actionTypes.FAV_PRODUCT})
       
@@ -99,7 +99,7 @@ export const addAddress = (url, data) => {
     })
     .then(result => {
      console.log(result);
-
+     window.location.reload();
       dispatch({type: actionTypes.ADD_ADDRESS})
       
     }).catch(err => 'something is wrong');

@@ -23,7 +23,7 @@ let reducer = (state = initalState, action) => {
       auth : null
     }
     case actionTypes.CONFIG:
-    console.log(action.payload)
+    
     return {
       ...state,
       commonConfig : action.payload
@@ -56,6 +56,11 @@ let reducer = (state = initalState, action) => {
       ...state
     }
     case actionTypes.FAV_PRODUCT:
+    return {
+      ...state,
+    }
+    case 'WRONG_POST':
+    window.location.reload();
     return {
       ...state,
     }

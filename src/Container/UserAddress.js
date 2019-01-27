@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Breadcrumb,  Segment, Card,  Grid,  Header,  Container,Button, Modal,Dropdown, Form, ModalDescription, Input } from 'semantic-ui-react';
+import {Breadcrumb,  Segment, Card,  Grid,  Header,  Container,Button, Modal,Dropdown, Form,  Input } from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as actionCreators from '../store/actions';
@@ -9,7 +9,7 @@ class UserAddress extends Component {
   constructor(props){
     super(props);
     this.state = {dataAddress: null,defaultAddress: null,otherAddress: null, loading: true,
-      config : null ,stateID: null, cityID : null, configComp: null}
+      stateID: null, cityID : null, configComp: null}
   }
   id = null;
   address_type = null;
@@ -34,7 +34,7 @@ class UserAddress extends Component {
    
     this.props.userFetchAddress(`http://139.59.87.122/modtod/beta/api/user/savedAddress`, fetchObj);
     this.setState({configComp : JSON.parse(localStorage.getItem('config'))});
-   console.log(this.state.configComp)
+  
     
  }
  stateOptions = null
@@ -43,53 +43,52 @@ class UserAddress extends Component {
     this.setState({dataAddress:this.props.userAddress})
     this.setState({defaultAddress: this.props.userAddress.filter(data => data.is_default === 1)})
     this.setState({otherAddress: this.props.userAddress.filter(data => data.is_default !== 1)})
-    
-    this.setState({config : this.props.commonConfig})
-    
-    
-     
-    
-       
-     
-     console.log(this.state.configComp)
+
     this.setState({loading: false})
     
    }
  }
  onChangeID(event){
   this.id = event.target.value;
-  console.log(this.id)
+
  }
  onChangeAddType(event){
   this.address_type = event.target.value
-  console.log(this.address_type)
+
  }
  onChangeName(event){
   this.name = event.target.value
-  console.log(this.name)
+
  }
  onChangeNum(event){
    this.mobile_number = event.target.value
-   console.log(this.mobile_number)
+ 
  }
  onChangeADD(event){
    this.address = event.target.value
-   console.log(this.address)
+
  }
  onChangeDefault(event){
    this.is_default = event.target.value
-   console.log(this.is_default)
+   
  }
  onChangePostal(event){
    this.postal_code = event.target.value
-   console.log(this.postal_code)
+   let pattern = /^[A-Z0-9^]+$/;
+   let testPostal = pattern.test(this.postal_code)
+   if(!testPostal){
+    alert('Wrong Postcode');
+    window.location.reload();
+ 
+   }
+  
  }
 handleStateChange(event){
-   console.log(event.target.value)
+ 
   this.setState({stateID : event.target.value})
 }
 handleCityChange(event){
- console.log(event.target.value)
+
   this.setState({cityID : event.target.value})
 }
 addAddress(){
@@ -124,22 +123,22 @@ addAddress(){
      
         <Grid.Column>
         { !this.state.loading ?
-               <Modal trigger={<Button color = 'green' floated = 'left' >AddAddress</Button>}>
+               <Modal trigger={<Button color = 'green' floated = 'left' >ADD/Update Address</Button>}>
                
-               <Modal.Header>ADD Address</Modal.Header>
+               <Modal.Header>ADD/Update Address</Modal.Header>
                
                     <Form>
                       <Form.Field>
                         <label>ID</label>
-                        <Input placeholder='ID' onChange ={(event) => this.onChangeID(event)}/>
+                        <Input type = 'number' placeholder='ID' onChange ={(event) => this.onChangeID(event)}/>
                       </Form.Field>
                       <Form.Field>
                         <label>Address_type</label>
-                        <Input placeholder='Address_type'onChange ={(event) => this.onChangeAddType(event)} />
+                        <Input type = 'number' placeholder='Address_type'onChange ={(event) => this.onChangeAddType(event)} />
                       </Form.Field>
                       <Form.Field>
                         <label>Name</label>
-                        <Input placeholder='Name' onChange ={(event) => this.onChangeName(event)}/>
+                        <Input  placeholder='Name' onChange ={(event) => this.onChangeName(event)}/>
                       </Form.Field>
                       <Form.Field>
                         <label>postal_code</label>
@@ -155,7 +154,7 @@ addAddress(){
                       </Form.Field>
                       <Form.Field>
                         <label>is_default</label>
-                        <input placeholder='is_default' onChange ={(event) => this.onChangeDefault(event)}/>
+                        <input placeholder='1 for default || 0 for other' type = 'number' onChange ={(event) => this.onChangeDefault(event)}/>
                       </Form.Field>
                       </Form>
                  <Modal.Content>
@@ -173,7 +172,7 @@ addAddress(){
                   {
                       this.state.configComp.province.map( (data) =>{
                           return (data.id == this.state.stateID) ? data.cities.map( (city) => (
-                              <option value={city.id} key={city.id} onSelect = {(event)=>this.handleCity(event,city.id)}>
+                              <option value={city.id} key={city.id} >
                               {city.name}
                               </option>
                           )) : null
@@ -212,6 +211,7 @@ addAddress(){
                 </Card.Meta>
                 <Card.Description><Header>Address: {data.address}</Header></Card.Description>
                 <Card.Description>UserID: {data.user_id}</Card.Description>
+                <Card.Description>ID: {data.id}</Card.Description>
                 <Card.Description>Postal-Code: {data.postal_code}</Card.Description>
                 <Card.Description>State-ID: {data.state_id}</Card.Description>
                 <Card.Description>MobileNo: {data.mobile_number}</Card.Description>
@@ -234,7 +234,7 @@ addAddress(){
             
             {!this.state.loading ? this.state.otherAddress.map(data =>(
               <div key = {data.id} >
-              <Header color = 'purple'>Other</Header>
+    
               <Card >
               <Card.Content>
                 <Card.Header as = 'h1'>{data.name}</Card.Header>
@@ -243,6 +243,7 @@ addAddress(){
                 </Card.Meta>
                 <Card.Description><Header>Address: {data.address}</Header></Card.Description>
                 <Card.Description>UserID: {data.user_id}</Card.Description>
+                <Card.Description>ID: {data.id}</Card.Description>
                 <Card.Description>Postal-Code: {data.postal_code}</Card.Description>
                 <Card.Description>State-ID: {data.state_id}</Card.Description>
                 <Card.Description>MobileNo: {data.mobile_number}</Card.Description>

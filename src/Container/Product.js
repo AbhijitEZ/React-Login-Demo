@@ -112,11 +112,14 @@ handleUnfav(){
      </Link>
      </Grid.Column>
      <Grid.Column>
-       <Button onClick = {() => this.handleFav()} color = 'green'>Add_FAV</Button>
-       <Button onClick = {() => this.handleUnfav()} color = 'red'>Remove_FAV</Button>
+     <Button.Group size='large'>
+        <Button onClick = {() => this.handleFav()} color = 'green'>Add_FAV</Button>
+        <Button.Or />
+        <Button onClick = {() => this.handleUnfav()} color = 'red'>Remove_FAV</Button>
+      </Button.Group>
      </Grid.Column>
      <Grid.Column>
-       <Header>{`${this.state.isFav ? 'favouirte': 'unfavouirte'}`}</Header> 
+       <Header as = 'h1'>{this.state.isFav ? <Icon  name = 'heart' color = 'red'/>: <Icon  name = 'heart outline' color = 'red'/>}</Header> 
      </Grid.Column>
      </Grid.Row>
       </Grid>

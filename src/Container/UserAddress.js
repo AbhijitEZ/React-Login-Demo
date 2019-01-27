@@ -1,9 +1,9 @@
 import React,{Component} from 'react';
-import {Breadcrumb,  Segment, Card,  Grid,  Header,  Container,Button, Modal,Dropdown, Form,  Input } from 'semantic-ui-react';
+import {Breadcrumb,  Segment, Card,  Grid,  Header,  Container,Button, Modal, Form,  Input, Label } from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as actionCreators from '../store/actions';
-
+import './style/add.css';
 
 class UserAddress extends Component {
   constructor(props){
@@ -121,45 +121,47 @@ addAddress(){
         <Grid columns={2}>
         <Grid.Row>
      
-        <Grid.Column>
+        <Grid.Column >
         { !this.state.loading ?
-               <Modal trigger={<Button color = 'green' floated = 'left' >ADD/Update Address</Button>}>
+               <Modal  trigger={<Button color = 'green' floated = 'left' >ADD/Update Address</Button>}>
                
                <Modal.Header>ADD/Update Address</Modal.Header>
                
-                    <Form>
+                    <Form className = 'modal_form' onSubmit = {() => this.addAddress()}>
                       <Form.Field>
-                        <label>ID</label>
-                        <Input type = 'number' placeholder='ID' onChange ={(event) => this.onChangeID(event)}/>
+                        <Label>ID</Label>
+                        <Input type = 'number' placeholder='ID' onChange ={(event) => this.onChangeID(event)} required/>
                       </Form.Field>
                       <Form.Field>
-                        <label>Address_type</label>
-                        <Input type = 'number' placeholder='Address_type'onChange ={(event) => this.onChangeAddType(event)} />
+                        <Label>Address_type</Label>
+                        <Input type = 'number' placeholder='Address_type'onChange ={(event) => this.onChangeAddType(event)} required/>
                       </Form.Field>
                       <Form.Field>
-                        <label>Name</label>
-                        <Input  placeholder='Name' onChange ={(event) => this.onChangeName(event)}/>
+                        <Label>Name</Label>
+                        <Input  placeholder='Name' onChange ={(event) => this.onChangeName(event)}required/>
                       </Form.Field>
                       <Form.Field>
-                        <label>postal_code</label>
-                        <Input placeholder='postal_code' onChange ={(event) => this.onChangePostal(event)}/>
+                        <Label>postal_code</Label>
+                        <Input placeholder='postal_code' onChange ={(event) => this.onChangePostal(event)} required/>
                       </Form.Field>
                       <Form.Field>
-                        <label>address</label>
-                        <Input placeholder='address'onChange ={(event) => this.onChangeADD(event)}/>
+                        <Label>address</Label>
+                        <Input placeholder='address'onChange ={(event) => this.onChangeADD(event) }required/>
                       </Form.Field>
                       <Form.Field>
-                        <label>mobile_number</label>
-                        <Input placeholder='mobile_number' onChange ={(event) => this.onChangeNum(event)}/>
+                        <Label>mobile_number</Label>
+                        <Input placeholder='mobile_number' onChange ={(event) => this.onChangeNum(event)} required/>
                       </Form.Field>
                       <Form.Field>
-                        <label>is_default</label>
-                        <input placeholder='1 for default || 0 for other' type = 'number' onChange ={(event) => this.onChangeDefault(event)}/>
+                        <Label>is_default</Label>
+                        <input placeholder='1 for default || 0 for other' type = 'number' onChange ={(event) => this.onChangeDefault(event)} required/>
                       </Form.Field>
-                      </Form>
+                      
                  <Modal.Content>
                  <Modal.Description>
-                        <select onChange={(event) => this.handleStateChange(event)}  as='Dropdown'>
+                 <Label>State</Label>
+                        <select onChange={(event) => this.handleStateChange(event)}  as='Dropdown' required>
+                       
                     <option>--State--</option>
                     {
                         this.state.configComp.province.map( (data) => (
@@ -167,7 +169,8 @@ addAddress(){
                         ))
                     }
                 </select>
-                      <select onChange={(event) => this.handleCityChange(event)} name='city_id' as='Dropdown'>
+                <Label>City</Label>
+                      <select className = 'city_input' onChange={(event) => this.handleCityChange(event)} name='city_id' as='Dropdown'  required>
                   <option>--- CITY ---</option>
                   {
                       this.state.configComp.province.map( (data) =>{
@@ -180,9 +183,9 @@ addAddress(){
                   }
               </select>
                      </Modal.Description>
-                 <Button onClick ={() => this.addAddress()}>Add Address</Button>
+                     <Input  type="submit" value="AddAddress" />
                </Modal.Content>
-               
+               </Form>
              </Modal>
           : null}
         </Grid.Column>

@@ -121,7 +121,73 @@ addAddress(){
           </Segment>
         <Grid columns={2}>
         <Grid.Row>
-   
+     
+        <Grid.Column>
+        { !this.state.loading ?
+               <Modal trigger={<Button color = 'green' floated = 'left' >AddAddress</Button>}>
+               
+               <Modal.Header>ADD Address</Modal.Header>
+               
+                    <Form>
+                      <Form.Field>
+                        <label>ID</label>
+                        <Input placeholder='ID' onChange ={(event) => this.onChangeID(event)}/>
+                      </Form.Field>
+                      <Form.Field>
+                        <label>Address_type</label>
+                        <Input placeholder='Address_type'onChange ={(event) => this.onChangeAddType(event)} />
+                      </Form.Field>
+                      <Form.Field>
+                        <label>Name</label>
+                        <Input placeholder='Name' onChange ={(event) => this.onChangeName(event)}/>
+                      </Form.Field>
+                      <Form.Field>
+                        <label>postal_code</label>
+                        <Input placeholder='postal_code' onChange ={(event) => this.onChangePostal(event)}/>
+                      </Form.Field>
+                      <Form.Field>
+                        <label>address</label>
+                        <Input placeholder='address'onChange ={(event) => this.onChangeADD(event)}/>
+                      </Form.Field>
+                      <Form.Field>
+                        <label>mobile_number</label>
+                        <Input placeholder='mobile_number' onChange ={(event) => this.onChangeNum(event)}/>
+                      </Form.Field>
+                      <Form.Field>
+                        <label>is_default</label>
+                        <input placeholder='is_default' onChange ={(event) => this.onChangeDefault(event)}/>
+                      </Form.Field>
+                      </Form>
+                 <Modal.Content>
+                 <Modal.Description>
+                        <select onChange={(event) => this.handleStateChange(event)}  as='Dropdown'>
+                    <option>--State--</option>
+                    {
+                        this.state.configComp.province.map( (data) => (
+                            <option value={data.id} key={data.id}>{data.name}</option>
+                        ))
+                    }
+                </select>
+                      <select onChange={(event) => this.handleCityChange(event)} name='city_id' as='Dropdown'>
+                  <option>--- CITY ---</option>
+                  {
+                      this.state.configComp.province.map( (data) =>{
+                          return (data.id == this.state.stateID) ? data.cities.map( (city) => (
+                              <option value={city.id} key={city.id} onSelect = {(event)=>this.handleCity(event,city.id)}>
+                              {city.name}
+                              </option>
+                          )) : null
+                      })
+                  }
+              </select>
+                     </Modal.Description>
+                 <Button onClick ={() => this.addAddress()}>Add Address</Button>
+               </Modal.Content>
+               
+             </Modal>
+          : null}
+        </Grid.Column>
+        
 
         </Grid.Row>
        
@@ -196,73 +262,7 @@ addAddress(){
             ):null}
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row>
-        <Grid.Column>
-        { !this.state.loading ?
-               <Modal trigger={<Button color = 'green' floated = 'left' >AddAddress</Button>}>
-               
-               <Modal.Header>ADD Address</Modal.Header>
-               
-                    <Form>
-                      <Form.Field>
-                        <label>ID</label>
-                        <Input placeholder='ID' onChange ={(event) => this.onChangeID(event)}/>
-                      </Form.Field>
-                      <Form.Field>
-                        <label>Address_type</label>
-                        <Input placeholder='Address_type'onChange ={(event) => this.onChangeAddType(event)} />
-                      </Form.Field>
-                      <Form.Field>
-                        <label>Name</label>
-                        <Input placeholder='Name' onChange ={(event) => this.onChangeName(event)}/>
-                      </Form.Field>
-                      <Form.Field>
-                        <label>postal_code</label>
-                        <Input placeholder='postal_code' onChange ={(event) => this.onChangePostal(event)}/>
-                      </Form.Field>
-                      <Form.Field>
-                        <label>address</label>
-                        <Input placeholder='address'onChange ={(event) => this.onChangeADD(event)}/>
-                      </Form.Field>
-                      <Form.Field>
-                        <label>mobile_number</label>
-                        <Input placeholder='mobile_number' onChange ={(event) => this.onChangeNum(event)}/>
-                      </Form.Field>
-                      <Form.Field>
-                        <label>is_default</label>
-                        <input placeholder='is_default' onChange ={(event) => this.onChangeDefault(event)}/>
-                      </Form.Field>
-                      </Form>
-                 <Modal.Content>
-                 <Modal.Description>
-                        <select onChange={(event) => this.handleStateChange(event)}  as='Dropdown'>
-                    <option>--State--</option>
-                    {
-                        this.state.configComp.province.map( (data) => (
-                            <option value={data.id} key={data.id}>{data.name}</option>
-                        ))
-                    }
-                </select>
-                      <select onChange={(event) => this.handleCityChange(event)} name='city_id' as='Dropdown'>
-                  <option>--- CITY ---</option>
-                  {
-                      this.state.configComp.province.map( (data) =>{
-                          return (data.id == this.state.stateID) ? data.cities.map( (city) => (
-                              <option value={city.id} key={city.id} onSelect = {(event)=>this.handleCity(event,city.id)}>
-                              {city.name}
-                              </option>
-                          )) : null
-                      })
-                  }
-              </select>
-                     </Modal.Description>
-                 <Button onClick ={() => this.addAddress()}>Add Address</Button>
-               </Modal.Content>
-               
-             </Modal>
-          : null}
-        </Grid.Column>
-        </Grid.Row>
+   
         </Grid>
       </Container>
     );
